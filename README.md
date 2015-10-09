@@ -64,14 +64,20 @@ a. Added buttons to refresh calendar events and send urgent missed call message.
 ####2.	ChatActivity.java: 
 a.	Added **TeleListener** teleListener to listen to missed calls.
 	**chatClientInterface.handleMissedCalls(incomingNumber, nickname);** is invoked to handle these missed calls.
+	
 b.	Added **OnClickListener buttonUrgentListener** to send a message that missed call was urgent
+
 c.	Added **createNotification** which shows a push notification
+
 d.	Added **getDistance** method to calculate distance.
+
 e.	Other relevant code in **MyReceiver** class:
+
             if (action.equalsIgnoreCase("jade.demo.chat.REFRESH_PARTICIPANTS")) {
                 // Rereshes the drop down list on UI everytime someone enters or leave the chat
                 UpdateParticipant();
             }
+
             if (action.equalsIgnoreCase("jade.demo.chat.URGENT_CALL_MISSED")) {
                 // Notifies user by push notification that missed call was urgent
                 createNotification(intent.getExtras().getString("sentence"));
@@ -81,6 +87,7 @@ e.	Other relevant code in **MyReceiver** class:
                 String messageTo = intent.getExtras().getString("sentence");
                 SendLocation(messageTo);
             }
+            
             if (action.equalsIgnoreCase("jade.demo.chat.CHECK_VICINITY")) {
                 // Checks vicinity to friend and notifies by push notification
                 String messageFrom = intent.getExtras().getString("locationFrom");
@@ -90,10 +97,18 @@ e.	Other relevant code in **MyReceiver** class:
             }
 ####3.	ChatClientAgent.java:
 a.	**handleMissedCalls** method: Checks if it is a repeated missed call by counting number of missed calls by that person in last 5 minutes.
+
 b.	**List<MissedCall> urgentMissedCalls = new ArrayList<MissedCall>();** Is maintained to keep track of all urgent missed calls.
+
 c.	**processMessage** method to process special messages such as RFL
+
 d.	**isUrgentMissedCall** checks call log for a missed call by that person in last 5 minutes.
+
 e.	**isPrivateEvent** will check if current calendar event of user is private or not
+
 f.	**getCasualMissedCalls** gets all casual missed call in last day, ie the ones which were not urgent
+
 g.	**getCasualMissedCallNames** gets distinct names of friends who had casual missed calls 
-h.	added **private ChatSpeaker(Agent a, String s, String ss)** to send private message. These are special messages such as RFL. Third argument ss is name of Agent to send message to.
+
+h.	added **private ChatSpeaker(Agent a, String s, String ss)** to send private message. These are special messages such 
+as RFL. Third argument ss is name of Agent to send message to.
